@@ -9,4 +9,13 @@
     <ProjectReference Include="..\Lib.Socket.Client\Lib.Socket.Client.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Certs\local.cer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\Demo.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

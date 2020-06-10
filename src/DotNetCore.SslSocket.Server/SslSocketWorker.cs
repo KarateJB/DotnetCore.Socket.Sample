@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DotNetCore.Socket.Server.Services;
+using DotNetCore.SslSocket.Server.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DotNetCore.Socket.Server
+namespace DotNetCore.SslSocket.Server
 {
-    public class Worker : BackgroundService
+    public class SslSocketWorker : BackgroundService
     {
         private const string SRV_START_MSG = "Starting Socket server...";
         private const string SRV_STOPPED_MSG = "Socket server stopped.";
 
-        private readonly ILogger<Worker> _logger;
+        private readonly ILogger<SslSocketWorker> _logger;
 
-        public Worker(ILogger<Worker> logger)
+        public SslSocketWorker(ILogger<SslSocketWorker> logger)
         {
             _logger = logger;
         }
@@ -26,14 +26,14 @@ namespace DotNetCore.Socket.Server
             Console.WriteLine(SRV_START_MSG);
             this._logger.LogDebug(SRV_START_MSG);
 
-            SocketServer.Start();
+            SslSocketServer.Start();
 
-            while (!cancelToken.IsCancellationRequested && !SocketServer.IsClosed)
+            while (!cancelToken.IsCancellationRequested)
             {
-                SocketServer.Listen();
+                SslSocketServer.Listen();
             }
 
-            SocketServer.Stop();
+            SslSocketServer.Stop();
             Console.WriteLine(SRV_STOPPED_MSG);
             this._logger.LogDebug(SRV_STOPPED_MSG);
 

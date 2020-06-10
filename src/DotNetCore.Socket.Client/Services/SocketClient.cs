@@ -28,30 +28,34 @@ namespace DotNetCore.Socket.Client.Services
             // IPAddress[] ipAddress = Dns.GetHostAddresses(Host);
             IPAddress ipAddress = IPAddress.Parse(Host);
             IPEndPoint ipEnd = new IPEndPoint(ipAddress, Port);
-            System.Net.Sockets.Socket sender = null;
+            System.Net.Sockets.Socket client = null;
 
             try
             {
                 // Make a client socket to send data to server.
-                sender = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                client = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
 
                 // Connect to Socket Server
-                sender.Connect(ipEnd);
-                Console.WriteLine($"Connected to {sender.RemoteEndPoint.ToString()}");
-
+                client.Connect(ipEnd);
+                Console.WriteLine($"Connected to {client.RemoteEndPoint.ToString()}");
 
                 #region Send without callback
+
                 // sender.Send(byteData);
                 #endregion
 
                 #region Send with callback
-                sender.BeginSend(clientData, 0, clientData.Length, 0, new AsyncCallback(this.SendCallback), sender);
+
+                client.BeginSend(clientData, 0, clientData.Length, 0, new AsyncCallback(this.SendCallback), client);
                 #endregion
+
+                #region Receive response from server
 
                 // Receive the response from the remote device
                 byte[] rtnBytes = new byte[1024]; // Data buffer for incoming data
-                int bytesRec = sender.Receive(rtnBytes);
+                int bytesRec = client.Receive(rtnBytes);
                 Console.WriteLine($"Echoed from server: {Encoding.ASCII.GetString(rtnBytes, 0, bytesRec)}");
+                #endregion
             }
             catch (ArgumentNullException ane)
             {
@@ -67,8 +71,8 @@ namespace DotNetCore.Socket.Client.Services
             }
             finally 
             {
-                if (sender.Connected)
-                    sender.Close();
+                if (client.Connected)
+                    client.Close();
             }
 
             await Task.CompletedTask;

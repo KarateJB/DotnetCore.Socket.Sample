@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 
 namespace DotNetCore.SslSocket.Server
 {
@@ -18,7 +17,14 @@ namespace DotNetCore.SslSocket.Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
-                });
+                    services.AddLogging(logger =>
+                    {
+                        logger.ClearProviders();
+                        logger.AddNLog();
+                    });
+
+                    services.AddHostedService<SslSocketWorker>();
+                })
+            .UseNLog();
     }
 }
