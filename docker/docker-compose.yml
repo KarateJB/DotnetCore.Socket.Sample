@@ -1,0 +1,21 @@
+version: "3"
+services:
+
+  app:
+    image: socket-sample:latest
+    build:
+      context: ../src
+      dockerfile: Dockerfile
+    container_name: socket-sample
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+    networks: 
+      - default
+    ports:
+      - ${APP_PORT}:6666
+    volumes:
+      - ./Upload:/app/publish/Upload
+
+networks:
+  default:
+    driver: bridge
