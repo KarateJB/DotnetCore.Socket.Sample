@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DotNetCore.Socket.Server.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -10,6 +11,9 @@ namespace DotNetCore.Socket.Server
 {
     public class Worker : BackgroundService
     {
+        private const string SRV_START_MSG = "Starting Socket server...";
+        private const string SRV_STOPPED_MSG = "Socket server stopped.";
+
         private readonly ILogger<Worker> _logger;
 
         public Worker(ILogger<Worker> logger)
@@ -19,13 +23,21 @@ namespace DotNetCore.Socket.Server
 
         protected override async Task ExecuteAsync(CancellationToken cancelToken)
         {
-            Console.WriteLine("Starting Socket server...");
+            Console.WriteLine(SRV_START_MSG);
+            this._logger.LogDebug(SRV_START_MSG);
 
-            while (!cancelToken.IsCancellationRequested)
+            SocketServer.Start();
+
+            while (!cancelToken.IsCancellationRequested && !SocketServer.IsClosed)
             {
+                SocketServer.Listen();
             }
 
-            Console.WriteLine("Socket server stoped.");
+            SocketServer.Stop();
+            Console.WriteLine(SRV_STOPPED_MSG);
+            this._logger.LogDebug(SRV_STOPPED_MSG);
+
+            await Task.CompletedTask;
         }
     }
 }

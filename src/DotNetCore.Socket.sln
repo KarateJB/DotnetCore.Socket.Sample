@@ -1,15 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Socket.Client", "DotNetCore.Socket.Client\DotNetCore.Socket.Client.csproj", "{79EB9573-9B49-4808-A5E4-765547BF1E62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.Socket.Client", "DotNetCore.Socket.Client\DotNetCore.Socket.Client.csproj", "{79EB9573-9B49-4808-A5E4-765547BF1E62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.SslSocket.Client", "DotNetCore.SslSocket.Client\DotNetCore.SslSocket.Client.csproj", "{0CAF7266-82B3-4950-88B3-62F3465EC9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.SslSocket.Client", "DotNetCore.SslSocket.Client\DotNetCore.SslSocket.Client.csproj", "{0CAF7266-82B3-4950-88B3-62F3465EC9DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.SslSocket.Server", "DotNetCore.SslSocket.Server\DotNetCore.SslSocket.Server.csproj", "{8C973D26-BD0D-4FBC-A85C-843CBAC54A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.SslSocket.Server", "DotNetCore.SslSocket.Server\DotNetCore.SslSocket.Server.csproj", "{8C973D26-BD0D-4FBC-A85C-843CBAC54A70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Socket.Server", "DotNetCore.Socket.Server\DotNetCore.Socket.Server.csproj", "{4C368450-519D-4154-A170-809F12A3E179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetCore.Socket.Server", "DotNetCore.Socket.Server\DotNetCore.Socket.Server.csproj", "{4C368450-519D-4154-A170-809F12A3E179}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Socket", "1. Socket", "{F684E55E-8EAB-4922-B8B8-CBB105AA69F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. SSL Socket", "2. SSL Socket", "{48C87446-9283-491D-9CA7-4C94F58B52B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Library", "3. Library", "{A8F3B8A1-B85E-441A-81AA-B4D2CB59D23C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Socket.Server", "Lib.Socket.Server\Lib.Socket.Server.csproj", "{0105D9C6-157D-4EC3-98E0-1301B7768F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Socket.Client", "Lib.Socket.Client\Lib.Socket.Client.csproj", "{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{79EB9573-9B49-4808-A5E4-765547BF1E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +79,43 @@ Global
 		{4C368450-519D-4154-A170-809F12A3E179}.Release|x64.Build.0 = Release|Any CPU
 		{4C368450-519D-4154-A170-809F12A3E179}.Release|x86.ActiveCfg = Release|Any CPU
 		{4C368450-519D-4154-A170-809F12A3E179}.Release|x86.Build.0 = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|x64.Build.0 = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Debug|x86.Build.0 = Debug|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|x64.ActiveCfg = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|x64.Build.0 = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|x86.ActiveCfg = Release|Any CPU
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15}.Release|x86.Build.0 = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|x64.Build.0 = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{79EB9573-9B49-4808-A5E4-765547BF1E62} = {F684E55E-8EAB-4922-B8B8-CBB105AA69F4}
+		{0CAF7266-82B3-4950-88B3-62F3465EC9DA} = {48C87446-9283-491D-9CA7-4C94F58B52B2}
+		{8C973D26-BD0D-4FBC-A85C-843CBAC54A70} = {48C87446-9283-491D-9CA7-4C94F58B52B2}
+		{4C368450-519D-4154-A170-809F12A3E179} = {F684E55E-8EAB-4922-B8B8-CBB105AA69F4}
+		{0105D9C6-157D-4EC3-98E0-1301B7768F15} = {A8F3B8A1-B85E-441A-81AA-B4D2CB59D23C}
+		{5BA65EE4-4C3B-4ADE-AE09-BFBE5B0078BD} = {A8F3B8A1-B85E-441A-81AA-B4D2CB59D23C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {905D938F-3D11-4116-887E-184357606D0C}
 	EndGlobalSection
 EndGlobal

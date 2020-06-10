@@ -4,8 +4,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using DotNetCore.Socket.Server.Models;
+using Lib.Socket.Server.Utils.Factory;
+using Lib.Socket.Server.Utils.Handler;
 
-namespace DotNetCore.Socket.Server
+namespace DotNetCore.Socket.Server.Services
 {
     /// <summary>
     /// Socket server
@@ -15,7 +18,7 @@ namespace DotNetCore.Socket.Server
         /// <summary>
         /// Thread signal
         /// </summary>
-        public static ManualResetEvent AllDone = null;
+        public static ManualResetEvent eventSignal = null;
 
         /// <summary>
         /// Socket listener
@@ -30,11 +33,18 @@ namespace DotNetCore.Socket.Server
         private static readonly IPEndPoint IpEndpoint = null; // Network endpoint
 
         /// <summary>
+        /// Stop Socket Server flag
+        /// </summary>
+        internal static bool IsClosed { get; set; }
+
+        #region Constructor
+
+        /// <summary>
         /// Constructor
         /// </summary>
         static SocketServer()
         {
-            AllDone = new ManualResetEvent(false);
+            eventSignal = new ManualResetEvent(false);
 
             // IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             // IPAddress ipAddress = ipHostInfo.AddressList[0];
@@ -44,11 +54,9 @@ namespace DotNetCore.Socket.Server
             IpEndpoint = new IPEndPoint(IPAddress.Any, Port);
             SocketListener = new System.Net.Sockets.Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
         }
+        #endregion
 
-        /// <summary>
-        /// Stop Socket Server flag
-        /// </summary>
-        internal static bool IsClosed { get; set; }
+        #region Start Socket Server
 
         /// <summary>
         /// Start the socket server
@@ -59,6 +67,9 @@ namespace DotNetCore.Socket.Server
             SocketListener.Bind(IpEndpoint);
             SocketListener.Listen(MaxQueuedClientNumber);
         }
+        #endregion
+
+        #region Stop Socket server
 
         /// <summary>
         /// Stop the socket server
@@ -68,13 +79,14 @@ namespace DotNetCore.Socket.Server
             SocketListener.Close();
             IsClosed = true;
         }
+        #endregion
 
         #region Listen
 
         internal static void Listen()
         {
             // Set the event to nonsignaled state
-            AllDone.Reset();
+            eventSignal.Reset();
 
             Console.WriteLine("[Socket] Waiting for a request...");
 
@@ -85,19 +97,20 @@ namespace DotNetCore.Socket.Server
             }
             catch (Exception ex)
             {
-                LoggerFactory.Instance.Error(ex, "Socket listen error");
+                LoggerProvider.Logger.Error(ex, "Socket listen error");
             }
 
             // Wait until a connection is made before continuing
-            AllDone.WaitOne();
+            eventSignal.WaitOne();
         }
         #endregion
 
         #region AcceptCallback
+
         private static void AcceptCallback(IAsyncResult ar)
         {
             // Signal the main thread to continue
-            AllDone.Set();
+            eventSignal.Set();
 
             // Get the socket that handles the client request
             System.Net.Sockets.Socket listener = (System.Net.Sockets.Socket)ar.AsyncState;
@@ -116,7 +129,7 @@ namespace DotNetCore.Socket.Server
             catch (Exception ex)
             {
                 handler.Close();
-                LoggerFactory.Instance.Error(ex, "Socket error");
+                LoggerProvider.Logger.Error(ex, "Socket error");
             }
         }
         #endregion
@@ -147,12 +160,16 @@ namespace DotNetCore.Socket.Server
                     // All the data has been read from the client. Display it on the console
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}", content.Length, content);
 
-                    // HACK: RequestHandler
-                    using var requestHandler = new RequestHandler();
-                    requestHandler.HandleFileAsync(state).Wait();
+                    // Handle the message request
+                    ////using var requestHandler = new MsgRequestHandler();
+                    ////requestHandler.HandleAsync(state).Wait();
+
+                    // Handle the file-uploading request
+                    using var requestHandler = new FileRequestHandler();
+                    requestHandler.HandleAsync(state).Wait();
 
                     // Echo something back to the client
-                    Send(handler, "Data received!");
+                    Send(handler, $"Received data on {DateTime.Now.ToString()}");
                 }
                 else
                 {
@@ -165,7 +182,7 @@ namespace DotNetCore.Socket.Server
 
         #region Send
 
-        private static void Send(Socket handler, string data)
+        private static void Send(System.Net.Sockets.Socket handler, string data)
         {
             // Convert the string data to byte data using ASCII encoding
             byte[] byteData = Encoding.ASCII.GetBytes(data);

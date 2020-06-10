@@ -5,4 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Lib.Socket.Client\Lib.Socket.Client.csproj" />
+  </ItemGroup>
+
 </Project>
