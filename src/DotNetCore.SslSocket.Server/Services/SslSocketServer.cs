@@ -160,15 +160,15 @@ namespace DotNetCore.SslSocket.Server.Services
                     Console.WriteLine("Read {0} bytes from socket. \n Data : {1}", content.Length, content);
 
                     // Handle the message request
-                    using var requestHandler = new MsgRequestHandler();
-                    requestHandler.HandleAsync(state).Wait();
+                    // using var requestHandler = new MsgRequestHandler();
+                    // requestHandler.HandleAsync(state).Wait();
 
                     // Handle the file-uploading request
-                    ////using var requestHandler = new FileRequestHandler();
-                    ////requestHandler.HandleAsync(state).Wait();
+                    using var requestHandler = new FileRequestHandler();
+                    requestHandler.HandleAsync(state).Wait();
 
                     // Echo something back to the client
-                    Send(handler, "Data received!");
+                    Send(handler, $"Received data on {DateTime.Now.ToString()}");
                 }
                 else
                 {

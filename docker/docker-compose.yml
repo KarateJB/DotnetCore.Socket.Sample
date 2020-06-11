@@ -1,20 +1,39 @@
-version: "3"
+version: "3.3"
 services:
 
-  app:
-    image: socket-sample:latest
+  socket-srv:
+    image: socket-srv:latest
     build:
-      context: ../src
-      dockerfile: Dockerfile
-    container_name: socket-sample
+      context: ../
+      dockerfile: docker/socket-server.dockerfile
+    container_name: my-socket-srv
     environment:
       DOTNET_ENVIRONMENT: Docker
+    restart: on-failure
     networks: 
       - default
     ports:
-      - ${APP_PORT}:6666
+      - ${SOCKET_PORT}:6666
     volumes:
-      - ./Upload:/app/publish/Upload
+      - ./Logs/my-socket-srv:/app/App_Data/Logs
+      - ./Upload/my-socket-srv:/app/Upload
+
+  ssl-socket-srv:
+    image: ssl-socket-srv:latest
+    build:
+      context: ../
+      dockerfile: docker/ssl-socket-server.dockerfile
+    container_name: my-ssl-socket-srv
+    environment:
+      DOTNET_ENVIRONMENT: Docker
+    restart: on-failure
+    networks: 
+      - default
+    ports:
+      - ${SSL_SOCKET_PORT}:6667
+    volumes:
+      - ./Logs/my-ssl-socket-srv:/app/App_Data/Logs
+      - ./Upload/my-ssl-socket-srv:/app/Upload
 
 networks:
   default:

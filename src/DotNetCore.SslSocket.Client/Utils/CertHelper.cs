@@ -11,7 +11,7 @@ namespace DotNetCore.SslSocket.Client.Utils
         /// <summary>
         /// Server Certificate
         /// </summary>
-        public static X509Certificate ClientCertificate = X509Certificate.CreateFromCertFile("Certs\\local.cer");
+        public static X509Certificate2 ClientCertificate = new X509Certificate2("Certs/local.cer");
 
         /// <summary>
         /// Verify TLS/SSL certificate

@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System.IO;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Lib.Socket.Server.Utils.Factory;
 
@@ -12,7 +13,7 @@ namespace DotNetCore.SslSocket.Server.Utils
         /// <summary>
         /// Server Certificate
         /// </summary>
-        public static X509Certificate ServerCertificate = new X509Certificate("Certs\\local.pfx", string.Empty);
+        public static X509Certificate2 ServerCertificate = new X509Certificate2("Certs/local.pfx", string.Empty);
 
         /// <summary>
         /// Verify TLS/SSL certificate

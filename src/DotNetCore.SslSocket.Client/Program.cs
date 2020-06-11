@@ -13,12 +13,12 @@ namespace DotNetCore.SslSocket.Client
             try
             {
                 // Send text to Socket server
-                using var msgSender = new MsgSender();
-                await msgSender.SendMsgAsync();
+                // using var msgSender = new MsgSender();
+                // await msgSender.SendMsgAsync();
 
                 // Send file to Socket server
-                //using var fileSender = new FileSender();
-                //await fileSender.SendFileAsync();
+                using var fileSender = new FileSender();
+                await fileSender.SendFileAsync();
 
                 Console.ReadKey();
             }

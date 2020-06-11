@@ -32,11 +32,14 @@ namespace DotNetCore.SslSocket.Client.Services
 
             try
             {
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
                 SslStream sslStream =
                     new SslStream(client.GetStream(),
                     false, new RemoteCertificateValidationCallback(CertHelper.ValidateServerCertificate), null);
 
-                var certs = new X509CertificateCollection();
+                var certs = new X509Certificate2Collection();
                 certs.Add(CertHelper.ClientCertificate);
 
                 try

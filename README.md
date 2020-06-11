@@ -19,3 +19,12 @@ $ pvk2pfx.exe -pvk local.pvk -spc local.cer -pfx local.pfx
 
 - `local.pfx` is for SSL Socket Server
 - `local.cer`(Public key) is for SSL Socket client
+
+
+
+## Run Socket servers as Docker containers
+
+```s
+$ cd docker
+$ docker-compose up --build
+```
