@@ -44,7 +44,7 @@ namespace DotNetCore.SslSocket.Client.Services
 
                 try
                 {
-                    await sslStream.AuthenticateAsClientAsync("localhost", certs, System.Security.Authentication.SslProtocols.Tls12, false);
+                    await sslStream.AuthenticateAsClientAsync("localhost", certs, System.Security.Authentication.SslProtocols.Tls12, true);
 
                     #region Send without callback
                     sslStream.Write(clientData);

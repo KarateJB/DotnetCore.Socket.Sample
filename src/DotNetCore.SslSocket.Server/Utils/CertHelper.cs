@@ -26,6 +26,12 @@ namespace DotNetCore.SslSocket.Server.Utils
         public static bool ValidateServerCertificate(
             object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
+            // Validate thumbprint
+            if (certificate.GetCertHashString() != ServerCertificate.Thumbprint)
+            {
+                return false;
+            }
+
             // For self-signed certificate, always return true.
             return true;
 
