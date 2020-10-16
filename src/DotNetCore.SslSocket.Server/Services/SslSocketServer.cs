@@ -117,7 +117,7 @@ namespace DotNetCore.SslSocket.Server.Services
 
             try
             {
-                sslStream.AuthenticateAsServer(CertHelper.ServerCertificate, false, SslProtocols.Tls12, false);
+                sslStream.AuthenticateAsServer(CertHelper.ServerCertificate, true, SslProtocols.Tls12, false);
 
                 // Create the state object
                 var state = new SslStreamState();

@@ -29,10 +29,12 @@ namespace DotNetCore.SslSocket.Server.Utils
             // For self-signed certificate, always return true.
             return true;
 
-            if (sslPolicyErrors == SslPolicyErrors.None)
-            {
-                return true;
-            }
+            // Validate thumbprint
+            // Notice you have to install the certificate on server.
+            //if (certificate.GetCertHashString() == ServerCertificate.Thumbprint)
+            //{
+            //    return true;
+            //}
 
             LoggerProvider.Logger.Error($"Certificate validation error: {sslPolicyErrors}");
 
